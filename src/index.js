@@ -4,7 +4,10 @@ import './index.css';
 
 function Square(props) {
   return (
-      <button className="square" onClick={props.onClick}>
+      <button className="square"
+              onClick={props.onClick}
+              data-num={props.num}
+      >
         {props.value}
       </button>
   );
@@ -15,6 +18,7 @@ class Board extends React.Component {
     return (<Square
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
+        num={i}
     />);
   }
 
@@ -47,6 +51,8 @@ class Game extends React.Component {
     this.state = {
       history: [{
         squares: Array(9).fill(null),
+        coords: '0:0',
+        squareNum: 0,
       }],
       stepNumber: 0,
       xIsNext: true,
@@ -54,19 +60,20 @@ class Game extends React.Component {
   }
 
   handleClick(i) {
-    let coords = getMoveCoords(i);
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
     if (calculateWinner(squares)) {
       return;
     }
+    let coords = getMoveCoords(i);
 
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       history: history.concat([{
         squares: squares,
         coords: coords,
+        squareNum: i,
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
@@ -80,16 +87,30 @@ class Game extends React.Component {
     })
   }
 
+  highlightMove(squareNum) {
+    let square = document.querySelector(`[data-num="${squareNum}"]`);
+    square.style.background = '#08f2ab';
+  }
+
+  takeHighlightOff(squareNum) {
+    let square = document.querySelector(`[data-num="${squareNum}"]`);
+    square.style.background = 'white';
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
-      const desc = move ? 'Go to move #' + move + ` (${step.coords})`: 'To the game start';
+      const desc = move ? 'Go to move #' + move + ` (${step.coords})` : 'To the game start';
       return (
           <li key={move}>
-            <button onClick={() => this.jumpTo(move)}>{desc}</button>
+            <button
+                onClick={() => this.jumpTo(move)}
+                onMouseEnter={() => this.highlightMove(step.squareNum)}
+                onMouseLeave={() => this.takeHighlightOff(step.squareNum)}
+            >{desc}</button>
           </li>
       )
     })
