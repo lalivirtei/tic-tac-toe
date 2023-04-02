@@ -50,6 +50,7 @@ class Game extends React.Component {
         coords: '0:0',
         squareNum: 0,
       }],
+      sort: 'ascending',
       stepNumber: 0,
       xIsNext: true,
     }
@@ -88,7 +89,7 @@ class Game extends React.Component {
     square.style.background = '#08f2ab';
   }
 
-  takeHighlightOff(squareNum) {
+  removeHighlight(squareNum) {
     let square = document.querySelector(`[data-num="${squareNum}"]`);
     square.style.background = 'white';
   }
@@ -101,15 +102,19 @@ class Game extends React.Component {
     const moves = history.map((step, move) => {
       const desc = move ? 'Go to move #' + move + ` (${step.coords})` : 'To the game start';
       return (
-          <li key={move}>
+          <li key={move} num={move}>
             <button
                 onClick={() => this.jumpTo(move)}
                 onMouseEnter={() => this.highlightMove(step.squareNum)}
-                onMouseLeave={() => this.takeHighlightOff(step.squareNum)}
+                onMouseLeave={() => this.removeHighlight(step.squareNum)}
             >{desc}</button>
           </li>
       )
     })
+
+    if (this.state.sort === 'descending') {
+      moves.sort((a, b) => b.props.num - a.props.num)
+    }
 
     let status;
 
@@ -130,6 +135,10 @@ class Game extends React.Component {
           <div className="game-info">
             <div>{status}</div>
             <ol>{moves}</ol>
+          </div>
+          <div className="sorter">
+            <button onClick={() => this.setState({sort: 'ascending'})}>Sort ascending</button>
+            <button onClick={() => this.setState({sort: 'descending'})}>Sort descending</button>
           </div>
         </div>
     );
