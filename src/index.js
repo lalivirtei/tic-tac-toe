@@ -81,7 +81,8 @@ class Game extends React.Component {
     this.setState({
       stepNumber: step,
       xIsNext: (step % 2) === 0,
-    })
+    });
+    this.resetBg();
   }
 
   highlightMove(squareNum) {
@@ -92,6 +93,11 @@ class Game extends React.Component {
   removeHighlight(squareNum) {
     let square = document.querySelector(`[data-num="${squareNum}"]`);
     square.style.background = 'white';
+  }
+
+  resetBg() {
+    document.querySelectorAll('.square')
+        .forEach(el => el.style.backgroundColor = 'white');
   }
 
   render() {
@@ -160,6 +166,7 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      highlightLine(lines[i]);
       return squares[a];
     }
   }
@@ -177,6 +184,14 @@ function getMoveCoords(i) {
   } else {
     return `3:${cell - 6}`;
   }
+}
+
+function highlightLine(nums) {
+  let square0 = document.querySelector(`[data-num="${nums[0]}"]`)
+  let square1 = document.querySelector(`[data-num="${nums[1]}"]`)
+  let square2 = document.querySelector(`[data-num="${nums[2]}"]`)
+  let els = [square0, square1, square2];
+  els.forEach(el => el.style.backgroundColor = '#52ff35');
 }
 
 // ========================================
