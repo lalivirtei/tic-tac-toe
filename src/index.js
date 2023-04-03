@@ -49,7 +49,7 @@ class Game extends React.Component {
         coords: '0:0',
         squareNum: 0,
       }],
-      sort: 'ascending',
+      sort: '↑',
       stepNumber: 0,
       xIsNext: true,
     }
@@ -118,7 +118,7 @@ class Game extends React.Component {
       )
     })
 
-    if (this.state.sort === 'descending') {
+    if (this.state.sort === '↓') {
       moves.sort((a, b) => b.props.num - a.props.num)
     }
 
@@ -148,10 +148,10 @@ class Game extends React.Component {
           <div className="sorter">
             <button
                 className="btn"
-                onClick={() => this.setState({sort: 'ascending'})}>Sort ascending</button>
+                onClick={() => this.setState({sort: '↑'})}>Sort ↑</button>
             <button
                 className="btn"
-                onClick={() => this.setState({sort: 'descending'})}>Sort descending</button>
+                onClick={() => this.setState({sort: '↓'})}>Sort ↓</button>
           </div>
         </div>
     );
