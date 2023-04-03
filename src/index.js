@@ -6,8 +6,7 @@ function Square(props) {
   return (
       <button className="square"
               onClick={props.onClick}
-              data-num={props.num}
-      >
+              data-num={props.num}>
         {props.value}
       </button>
   );
@@ -124,10 +123,11 @@ class Game extends React.Component {
 
     let status;
 
-    if (winner && winner !== '=') {
-      status = 'Winner is:  ' + winner;
+    if (winner?.player === 'X' || winner?.player === 'O') {
+      status = 'Winner is:  ' + winner.player;
+      highlightLine(winner.lines);
     } else if (winner === '=') {
-      status = 'Draw';
+      status = 'Draw'
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
@@ -168,8 +168,10 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      highlightLine(lines[i]);
-      return squares[a];
+      return {
+        lines: lines[i],
+        player: squares[a],
+      };
     }
   }
 
