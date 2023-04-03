@@ -86,7 +86,7 @@ class Game extends React.Component {
 
   highlightMove(squareNum) {
     let square = document.querySelector(`[data-num="${squareNum}"]`);
-    square.style.background = '#08f2ab';
+    square.style.background = '#eaefb1';
   }
 
   removeHighlight(squareNum) {
@@ -109,6 +109,7 @@ class Game extends React.Component {
       return (
           <li key={move} num={move}>
             <button
+                className="btn"
                 onClick={() => this.jumpTo(move)}
                 onMouseEnter={() => this.highlightMove(step.squareNum)}
                 onMouseLeave={() => this.removeHighlight(step.squareNum)}
@@ -141,12 +142,16 @@ class Game extends React.Component {
             />
           </div>
           <div className="game-info">
-            <div>{status}</div>
+            <div className="status">{status}</div>
             <ol>{moves}</ol>
           </div>
           <div className="sorter">
-            <button onClick={() => this.setState({sort: 'ascending'})}>Sort ascending</button>
-            <button onClick={() => this.setState({sort: 'descending'})}>Sort descending</button>
+            <button
+                className="btn"
+                onClick={() => this.setState({sort: 'ascending'})}>Sort ascending</button>
+            <button
+                className="btn"
+                onClick={() => this.setState({sort: 'descending'})}>Sort descending</button>
           </div>
         </div>
     );
@@ -198,7 +203,7 @@ function highlightLine(nums) {
   let square1 = document.querySelector(`[data-num="${nums[1]}"]`)
   let square2 = document.querySelector(`[data-num="${nums[2]}"]`)
   let els = [square0, square1, square2];
-  els.forEach(el => el.style.backgroundColor = '#52ff35');
+  els.forEach(el => el.style.backgroundColor = '#E9F7CA');
 }
 
 // ========================================

@@ -1,10 +1,73 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
 body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
+  line-height: 1;
 }
 
 ol, ul {
-  padding-left: 30px;
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* END reset */
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  padding: 80px;
+  background: #e9f7ca;
+  height: 100%;
+  box-sizing: border-box;
+  font-family: 'Alkatra', cursive;
+}
+
+.root {
+  height: 100%;
 }
 
 .board-row:after {
@@ -19,17 +82,25 @@ ol, ul {
 
 .square {
   background: #fff;
-  border: 1px solid #999;
+  border: 3px solid #e9f7ca;
   float: left;
-  font-size: 24px;
+  font-family: inherit;
+  font-size: 32px;
   font-weight: bold;
   line-height: 34px;
-  height: 34px;
+  height: 65px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 65px;
+  color: #f9a03f;
+  cursor: pointer;
+  border-radius: 15px;
+}
+
+.square:hover {
+  background: #eaefb1;
 }
 
 .square:focus {
@@ -43,8 +114,39 @@ ol, ul {
 .game {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 .game-info {
-  margin-left: 20px;
+  margin-right: 50px;
+  min-width: 180px;
+}
+
+.game-board {
+  margin-right: 80px;
+}
+
+.btn {
+  padding: 5px 15px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border: 1px solid #ceb5a7;
+  border-radius: 5px;
+
+  font-family: inherit;
+  font-size: 16px;
+
+  background: #f7d488;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #ceb5a7;
+}
+
+.status {
+  font-size: 28px;
+  margin-bottom: 20px;
 }
